@@ -10,6 +10,7 @@ body {
     text-align: center;
 }
 header {
+    font-family: 'SF Pro', Arial, sans-serif;
     background-color: #0a9538;
     color: white;
     padding: 1em 0;
