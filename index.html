@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three.js with Tween.js Animations</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+    #stage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .actor {
+      width: 150px;
+      height: 150px;
+      background-color: rgba(0, 255, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 20px;
+      text-align: center;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <div id="intro" class="actor">Intro Container</div>
+    <div id="containerW" class="actor" style="background-color: rgba(0, 0, 255, 0.5);">W Container</div>
+    <div id="containerA" class="actor" style="background-color: rgba(255, 0, 0, 0.5);">A Container</div>
+    <div id="containerS" class="actor" style="background-color: rgba(255, 255, 0, 0.5);">S Container</div>
+    <div id="containerD" class="actor" style="background-color: rgba(255, 0, 255, 0.5);">D Container</div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/Tween.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
