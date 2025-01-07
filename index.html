@@ -136,6 +136,24 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 			.elementor img{
 	height:inherit;
 }		</style>
+
+<style>
+    .sequence-container {
+        position: relative; /* Change to relative to stay within the normal flow */
+        overflow: hidden; /* Hide any overflow from the canvas */
+        width: 100%; /* Full width */
+        height: 100vh; /* Full height of the viewport */
+    }
+
+    canvas {
+        display: block; /* Removes extra space around the canvas */
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        position: absolute; /* Positioning the canvas absolutely */
+        top: 0;
+        left: 0;
+    }
+</style>
 		</head>
 
 <body class="page-template page-template-page-templates page-template-home-light page-template-page-templateshome-light-php page page-id-954 elementor-default elementor-kit-6 elementor-page elementor-page-954">
@@ -223,7 +241,7 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
             </div>
             <div class="popup-menu-footer">
                 <div class="copyright">
-                    <p>© 2024 ALL RIGHTS RESERVED</p>
+                    <p>© 2025</p>
 
                     <ul class="social-links">
                         <li>
@@ -322,12 +340,170 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 				<div class="elementor-widget-container">
 			
 <!-- ===== Full Image Start ===== -->
-<div class="full-image-sec pt-30">
+<!-- <div class="full-image-sec pt-30">
     <div class="full-image-box">
         <img decoding="async" class="scaleDown" src="./images/rod_01.jpg" alt="">
     </div>
-</div>
+</div> -->
+
 <!-- ===== Full Image End ===== -->
+
+
+<!-- ===== Cycle Image Start ===== -->
+
+<div class="full-image-sec pt-30 sequence-container">
+    <div class="full-image-box">
+        <canvas id="scroll-canvas"></canvas>
+    </div>
+</div>
+
+<style>
+    /* Ensures the canvas takes up the full space of the container */
+    #scroll-canvas {
+        display: block; /* Remove any default inline spacing */
+        width: 100%; /* Make canvas responsive */
+        height: auto; /* Maintain aspect ratio */
+    }
+</style>
+
+<script>
+    const canvas = document.getElementById('scroll-canvas');
+    const context = canvas.getContext('2d');
+
+    // Image source array
+    const images = [
+        "./images/cycles/header/gamelab_00.jpg",
+        "./images/cycles/header/gamelab_01.jpg",
+        "./images/cycles/header/gamelab_02.jpg",
+        "./images/cycles/header/gamelab_03.jpg",
+        "./images/cycles/header/gamelab_04.jpg",
+        "./images/cycles/header/gamelab_05.jpg",
+        "./images/cycles/header/gamelab_06.jpg",
+        "./images/cycles/header/gamelab_07.jpg",
+        "./images/cycles/header/gamelab_08.jpg",
+        "./images/cycles/header/gamelab_09.jpg",
+        "./images/cycles/header/gamelab_10.jpg",
+        "./images/cycles/header/gamelab_11.jpg",
+        "./images/cycles/header/gamelab_12.jpg",
+        "./images/cycles/header/gamelab_13.jpg",
+        "./images/cycles/header/gamelab_14.jpg",
+        "./images/cycles/header/gamelab_15.jpg",
+    ];
+
+    const frameCount = images.length;
+    const imageElements = [];
+
+    // Preload images
+    const preloadImages = () => {
+        images.forEach(src => {
+            const img = new Image();
+            img.src = src;
+            imageElements.push(img);
+        });
+    };
+
+    // Draw the image on the canvas
+    const updateImage = (index) => {
+        const img = imageElements[index];
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+
+    const updateCanvasSize = () => {
+        const container = document.querySelector('.full-image-box');
+        const { width, height } = container.getBoundingClientRect();
+        canvas.width = width;
+        canvas.height = height;
+    };
+
+    const updateImageOnScroll = () => {
+        const container = document.querySelector('.sequence-container');
+        const rect = container.getBoundingClientRect();
+        const midScreen = window.innerHeight / 2;
+
+        if (rect.top < midScreen && rect.bottom > 0) {
+            const containerHeight = rect.height;
+            const scrollFraction = Math.min(1, Math.max(0, (midScreen - rect.top) / containerHeight));
+            const frameIndex = Math.min(frameCount - 1, Math.floor(scrollFraction * frameCount));
+            updateImage(frameIndex);
+        } else {
+            // If not in view, keep the first image visible
+            updateImage(0);
+        }
+    };
+
+    // Initialize
+    preloadImages();
+    updateCanvasSize();
+    window.addEventListener('scroll', updateImageOnScroll);
+    window.addEventListener('resize', updateCanvasSize);
+
+    // Ensure the first image is visible immediately on page load
+    window.onload = () => {
+        updateImage(0); // Show the first image immediately
+    };
+</script>
+
+
+
+<!--     <div class="full-image-sec pt-30">
+        <div class="full-image-box">
+            <img id="scroll-image" decoding="async" class="scaleDown" src="./images/cycles/header/gamelab_00.png" alt="">
+        </div>
+    </div>
+
+    <script>
+        // Image source array
+        const images = [
+            "./images/cycles/header/gamelab_00.jpg",
+            "./images/cycles/header/gamelab_01.jpg",
+            "./images/cycles/header/gamelab_02.jpg",
+            "./images/cycles/header/gamelab_03.jpg",
+            "./images/cycles/header/gamelab_04.jpg",
+            "./images/cycles/header/gamelab_05.jpg",
+            "./images/cycles/header/gamelab_06.jpg",
+            "./images/cycles/header/gamelab_07.jpg",
+            "./images/cycles/header/gamelab_08.jpg",
+            "./images/cycles/header/gamelab_09.jpg",
+            "./images/cycles/header/gamelab_10.jpg",
+            "./images/cycles/header/gamelab_11.jpg",
+            "./images/cycles/header/gamelab_12.jpg",
+            "./images/cycles/header/gamelab_13.jpg",
+            "./images/cycles/header/gamelab_14.jpg",
+            "./images/cycles/header/gamelab_15.jpg",
+
+        ];
+
+        // Function to track scroll and update image
+        function updateImageOnScroll() {
+            const imageElement = document.getElementById('scroll-image');
+            const fullImageBox = document.querySelector('.full-image-box');
+            
+            // Get the distance from the top of the viewport
+            const rect = fullImageBox.getBoundingClientRect();
+            const offsetTop = rect.top;
+
+            // Get the window height
+            const windowHeight = window.innerHeight;
+
+            // Calculate the progress as a percentage
+            const progress = Math.min(1, Math.max(0, (windowHeight - offsetTop) / windowHeight));
+
+            // Determine which image to display based on progress
+            const imageIndex = Math.floor(progress * (images.length - 1));
+
+            // Set the image source based on the calculated progress
+            imageElement.src = images[imageIndex];
+        }
+
+        // Add scroll event listener
+        window.addEventListener('scroll', updateImageOnScroll);
+
+        // Trigger the function once when the page is loaded
+        updateImageOnScroll();
+    </script> -->
+
+ <!-- ===== Cycle Image End ===== -->
 
 
     		</div>
